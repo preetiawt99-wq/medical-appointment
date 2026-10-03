@@ -1,0 +1,1518 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Medical Appointment & Risk Prediction System - BCSP-064 Project Report</title>
+<script src="mermaid.min.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'neutral',
+            themeVariables: {
+                primaryColor: '#e0e7ff',
+                primaryTextColor: '#1e3a8a',
+                primaryBorderColor: '#3b82f6',
+                lineColor: '#475569',
+                secondaryColor: '#f1f5f9',
+                tertiaryColor: '#ffffff',
+                fontFamily: "'Segoe UI', Arial, sans-serif",
+                fontSize: "12px"
+            },
+            flowchart: { curve: 'linear', htmlLabels: true },
+            securityLevel: 'loose'
+        });
+    });
+</script>
+<style>
+    @page {
+        size: A4 portrait;
+        margin: 20mm 15mm 20mm 25mm;
+    }
+    
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Times New Roman', Times, Georgia, serif;
+        font-size: 11pt;
+        line-height: 1.48;
+        color: #1e293b;
+        background-color: #ffffff;
+        margin: 0;
+        padding: 0;
+    }
+
+    .page-break {
+        page-break-after: always;
+        break-after: page;
+    }
+
+    /* Cover Page */
+    .cover-page {
+        min-height: 86vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        text-align: center;
+        padding: 28px 20px;
+        border: 4px double #1e3a8a;
+    }
+
+    .cover-univ-title {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 18pt;
+        font-weight: 800;
+        color: #1e3a8a;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin: 0 0 4px 0;
+    }
+
+    .cover-school {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 12pt;
+        font-weight: 600;
+        color: #334155;
+        letter-spacing: 0.5px;
+        margin: 0 0 3px 0;
+    }
+
+    .cover-location {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 10pt;
+        color: #64748b;
+        margin-bottom: 18px;
+    }
+
+    .cover-report-badge {
+        display: inline-block;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 10.5pt;
+        font-weight: 700;
+        color: #ffffff;
+        background-color: #1e3a8a;
+        padding: 5px 20px;
+        border-radius: 4px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 16px;
+    }
+
+    .cover-title-box {
+        border-top: 2.5px solid #1e3a8a;
+        border-bottom: 2.5px solid #1e3a8a;
+        padding: 16px 12px;
+        margin: 8px 0 18px 0;
+        background-color: #f8fafc;
+        width: 100%;
+    }
+
+    .cover-project-title {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 19.5pt;
+        font-weight: 800;
+        color: #0f172a;
+        line-height: 1.25;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .cover-subtitle {
+        font-family: Georgia, serif;
+        font-size: 11.5pt;
+        font-style: italic;
+        color: #475569;
+        margin-top: 6px;
+    }
+
+    .cover-submission-text {
+        font-size: 10.5pt;
+        color: #334155;
+        max-width: 560px;
+        margin: 10px auto 5px auto;
+        line-height: 1.4;
+    }
+
+    .cover-degree {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 13.5pt;
+        font-weight: 800;
+        color: #1e3a8a;
+        text-transform: uppercase;
+        margin: 5px 0;
+    }
+
+    .cover-course {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 11pt;
+        font-weight: 600;
+        color: #475569;
+        margin-bottom: 18px;
+    }
+
+    .cover-details-grid {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        text-align: left;
+        margin-top: 10px;
+        padding: 12px 18px;
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+    }
+
+    .cover-col {
+        width: 48%;
+    }
+
+    .cover-col h4 {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 10pt;
+        color: #1e3a8a;
+        text-transform: uppercase;
+        margin: 0 0 5px 0;
+        border-bottom: 1.5px solid #cbd5e1;
+        padding-bottom: 2px;
+        letter-spacing: 0.5px;
+    }
+
+    .cover-col p {
+        margin: 2px 0;
+        font-size: 9.5pt;
+        line-height: 1.35;
+    }
+
+    .cover-footer {
+        margin-top: 14px;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 10pt;
+        font-weight: 600;
+        color: #64748b;
+    }
+
+    /* Content Typography */
+    h1, h2, h3, h4 {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #0f172a;
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+
+    .chapter-header {
+        border-bottom: 2.5px solid #1e3a8a;
+        padding-bottom: 5px;
+        margin-top: 18px;
+        margin-bottom: 14px;
+    }
+
+    .chapter-badge {
+        font-size: 10pt;
+        font-weight: 700;
+        color: #1e3a8a;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        display: block;
+        margin-bottom: 2px;
+    }
+
+    .chapter-title {
+        font-size: 16pt;
+        font-weight: 800;
+        color: #0f172a;
+        margin: 0;
+        text-transform: uppercase;
+    }
+
+    h2 {
+        font-size: 12.5pt;
+        font-weight: 700;
+        color: #1e3a8a;
+        margin-top: 16px;
+        margin-bottom: 7px;
+        border-bottom: 1px solid #e2e8f0;
+        padding-bottom: 3px;
+    }
+
+    h3 {
+        font-size: 11pt;
+        font-weight: 600;
+        color: #334155;
+        margin-top: 12px;
+        margin-bottom: 5px;
+    }
+
+    p {
+        margin: 0 0 7px 0;
+        text-align: justify;
+    }
+
+    ul, ol {
+        margin: 0 0 9px 0;
+        padding-left: 20px;
+    }
+
+    li {
+        margin-bottom: 3px;
+    }
+
+    /* Formal Certificates & Acknowledgement */
+    .formal-doc {
+        padding: 15px 5px;
+    }
+
+    .formal-doc h2 {
+        text-align: center;
+        font-size: 15pt;
+        color: #1e3a8a;
+        border-bottom: 2px solid #1e3a8a;
+        padding-bottom: 6px;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .signature-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 55px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .sig-box {
+        width: 44%;
+        border-top: 1.5px dashed #475569;
+        padding-top: 8px;
+        text-align: center;
+        font-size: 9.5pt;
+        line-height: 1.35;
+    }
+
+    /* Table of Contents - Single Page Fit */
+    .toc-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 6px 0;
+    }
+
+    .toc-table tr td {
+        padding: 2.2px 2px;
+        font-size: 8.8pt;
+        line-height: 1.25;
+    }
+
+    .toc-chapter {
+        font-weight: bold;
+        color: #1e3a8a;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .toc-section {
+        padding-left: 14px !important;
+        color: #334155;
+    }
+
+    /* Data Tables */
+    table.data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 8px 0 12px 0;
+        font-size: 9pt;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    table.data-table th {
+        background-color: #1e3a8a;
+        color: #ffffff;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-weight: 600;
+        text-align: left;
+        padding: 5.5px 8px;
+        border: 1px solid #1e3a8a;
+    }
+
+    table.data-table td {
+        padding: 5px 8px;
+        border: 1px solid #cbd5e1;
+        vertical-align: top;
+    }
+
+    table.data-table tr:nth-child(even) {
+        background-color: #f8fafc;
+    }
+
+    .status-pass {
+        display: inline-block;
+        background-color: #059669;
+        color: white;
+        font-weight: bold;
+        font-size: 8pt;
+        padding: 1px 5px;
+        border-radius: 3px;
+    }
+
+    /* Diagram Containers */
+    .diagram-card {
+        background-color: #ffffff;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        padding: 10px 8px 6px 8px;
+        margin: 10px auto;
+        text-align: center;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        max-width: 98%;
+    }
+
+    .diagram-card svg {
+        max-height: 390px !important;
+        width: auto !important;
+        max-width: 100% !important;
+    }
+
+    .diagram-card-compact svg {
+        max-height: 250px !important;
+    }
+
+    .diagram-caption {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-size: 8.5pt;
+        font-weight: 600;
+        color: #475569;
+        margin-top: 6px;
+        border-top: 1px dashed #e2e8f0;
+        padding-top: 4px;
+    }
+
+    .box-diagram {
+        background-color: #f8fafc;
+        border: 1.5px solid #94a3b8;
+        padding: 8px 10px;
+        font-family: 'Consolas', monospace;
+        font-size: 8pt;
+        white-space: pre;
+        line-height: 1.25;
+        border-radius: 4px;
+        overflow-x: auto;
+        text-align: left;
+        margin: 6px 0;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    pre, code {
+        font-family: 'Consolas', 'Courier New', monospace;
+        font-size: 8.5pt;
+    }
+
+    pre {
+        background-color: #0f172a;
+        color: #f1f5f9;
+        padding: 7px 10px;
+        border-radius: 4px;
+        overflow-x: auto;
+        margin: 6px 0;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .viva-card {
+        background-color: #f8fafc;
+        border-left: 3.5px solid #1e3a8a;
+        padding: 8px 11px;
+        margin: 9px 0;
+        border-radius: 0 4px 4px 0;
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+
+    .viva-q {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        font-weight: 700;
+        font-size: 9.5pt;
+        color: #1e3a8a;
+        margin-bottom: 3px;
+    }
+
+    .viva-a {
+        color: #334155;
+        font-size: 9.5pt;
+        line-height: 1.4;
+    }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE (Page 1) -->
+<div class="cover-page">
+    <div>
+        <div class="cover-univ-title">Indira Gandhi National Open University</div>
+        <div class="cover-school">School of Computer and Information Sciences (SOCIS)</div>
+        <div class="cover-location">Maidan Garhi, New Delhi - 110068</div>
+        <div class="cover-report-badge">Major Project Report</div>
+        
+        <div class="cover-title-box">
+            <h1 class="cover-project-title">Smart Medical Appointment & Risk Prediction System</h1>
+            <div class="cover-subtitle">A Full-Stack Enterprise Healthcare Scheduling & Automated Symptom Triage Platform</div>
+        </div>
+
+        <div class="cover-submission-text">
+            Project Report submitted in partial fulfillment of the requirements for the award of the degree of
+        </div>
+        <div class="cover-degree">Bachelor of Computer Applications (BCA)</div>
+        <div class="cover-course">Course Code: BCSP-064 (Major Project)</div>
+    </div>
+
+    <div class="cover-details-grid">
+        <div class="cover-col">
+            <h4>Submitted By</h4>
+            <p><strong>Candidate Name:</strong> Preeti</p>
+            <p><strong>Enrollment Number:</strong> 2401048429</p>
+            <p><strong>Programme:</strong> BCA (Semester VI)</p>
+            <p><strong>Study Centre:</strong> IGNOU Regional Centre</p>
+        </div>
+        <div class="cover-col">
+            <h4>Under The Guidance Of</h4>
+            <p><strong>Project Guide:</strong> Gaurav Dhyani</p>
+            <p><strong>Designation:</strong> Cloud Administrator</p>
+            <p><strong>Academic Institution:</strong> SOCIS, IGNOU</p>
+            <p><strong>City:</strong> New Delhi, India</p>
+        </div>
+    </div>
+
+    <div class="cover-footer">
+        Academic Session: 2025 - 2026
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- CERTIFICATE OF ORIGINALITY (Page 2) -->
+<div class="formal-doc">
+    <h2>Certificate of Originality</h2>
+    
+    <p style="margin-top: 25px; line-height: 1.8;">
+        This is to certify that the project report entitled <strong>"Smart Medical Appointment and Risk Prediction System"</strong>, submitted by <strong>Preeti</strong> (Enrollment Number: <strong>2401048429</strong>) in partial fulfillment of the requirements for the award of the degree of <strong>Bachelor of Computer Applications (BCA)</strong> from <strong>Indira Gandhi National Open University (IGNOU)</strong>, is an authentic and original work carried out by her under my guidance and supervision.
+    </p>
+
+    <p style="margin-top: 18px; line-height: 1.8;">
+        To the best of my knowledge, the matter embodied in this project report has not been submitted by the candidate or any other person for the award of any other degree or diploma to any university or institution.
+    </p>
+
+    <div class="signature-container" style="margin-top: 85px;">
+        <div class="sig-box">
+            <strong>Preeti</strong><br>
+            Enrollment No: 2401048429<br>
+            BCA Final Year, IGNOU<br>
+            <em>(Signature of the Candidate)</em><br>
+            Date: ____________________
+        </div>
+        <div class="sig-box">
+            <strong>Gaurav Dhyani</strong><br>
+            Designation: Cloud Administrator<br>
+            Project Guide, IGNOU<br>
+            <em>(Signature of the Guide)</em><br>
+            Date: ____________________
+        </div>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- ACKNOWLEDGEMENT (Page 3) -->
+<div class="formal-doc">
+    <h2>Acknowledgement</h2>
+    
+    <p style="margin-top: 25px; line-height: 1.8;">
+        I would like to express my profound gratitude and sincere appreciation to my esteemed project guide, <strong>Gaurav Dhyani</strong> (Cloud Administrator), for his invaluable guidance, continuous encouragement, constructive critiques, and technical insights throughout the design, implementation, and documentation of the <strong>Smart Medical Appointment and Risk Prediction System</strong>. His expertise in enterprise software architectures, cloud standards, and system security has been instrumental in shaping this project to academic and professional excellence.
+    </p>
+
+    <p style="margin-top: 16px; line-height: 1.8;">
+        I also extend my heartfelt thanks to the faculty members, coordinators, and administrative staff of the <strong>School of Computer and Information Sciences (SOCIS), IGNOU</strong>, for providing a comprehensive curriculum that laid a solid foundation in software engineering, database normalization, web architectures, and object-oriented paradigms.
+    </p>
+
+    <p style="margin-top: 16px; line-height: 1.8;">
+        Lastly, I express my deepest love and gratitude to my family and friends for their steadfast encouragement, moral support, and patience throughout the tenure of my BCA programme.
+    </p>
+
+    <div class="signature-container" style="margin-top: 70px; justify-content: flex-end;">
+        <div class="sig-box" style="width: 48%;">
+            <strong>Preeti</strong><br>
+            Enrollment Number: 2401048429<br>
+            Bachelor of Computer Applications (BCA)<br>
+            Indira Gandhi National Open University (IGNOU)<br>
+            Place: New Delhi<br>
+            Date: ____________________
+        </div>
+    </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- TABLE OF CONTENTS (Page 4 - Complete on single page) -->
+<div class="formal-doc">
+    <h2>Table of Contents</h2>
+    
+    <table class="toc-table">
+        <tr class="toc-chapter"><td>1. CHAPTER 1: INTRODUCTION</td><td align="right">1</td></tr>
+        <tr><td class="toc-section">1.1 Project Overview</td><td align="right">1</td></tr>
+        <tr><td class="toc-section">1.2 Purpose and Objectives</td><td align="right">1</td></tr>
+        <tr><td class="toc-section">1.3 Project Category & WDLC (Web Development Life Cycle)</td><td align="right">2</td></tr>
+        <tr><td class="toc-section">1.4 Scope & Limitations of the Existing System</td><td align="right">2</td></tr>
+        <tr><td class="toc-section">1.5 Hardware and Software Environment</td><td align="right">3</td></tr>
+
+        <tr class="toc-chapter"><td>2. CHAPTER 2: SYSTEM ANALYSIS & REQUIREMENTS</td><td align="right">4</td></tr>
+        <tr><td class="toc-section">2.1 Feasibility Study (Technical, Operational, Economic)</td><td align="right">4</td></tr>
+        <tr><td class="toc-section">2.2 Software Requirement Specification (SRS)</td><td align="right">4</td></tr>
+        <tr><td class="toc-section">2.3 User Role Identification (Admin, Doctor, Patient)</td><td align="right">5</td></tr>
+        <tr><td class="toc-section">2.4 Functional & Non-Functional Requirements</td><td align="right">5</td></tr>
+
+        <tr class="toc-chapter"><td>3. CHAPTER 3: SYSTEM DESIGN & UML / DFD MODELING</td><td align="right">6</td></tr>
+        <tr><td class="toc-section">3.1 3-Tier Layered Architecture</td><td align="right">6</td></tr>
+        <tr><td class="toc-section">3.2 Use Case Diagram</td><td align="right">7</td></tr>
+        <tr><td class="toc-section">3.3 Class Diagram</td><td align="right">8</td></tr>
+        <tr><td class="toc-section">3.4 Data Flow Diagram: Level 0 (Context Diagram)</td><td align="right">9</td></tr>
+        <tr><td class="toc-section">3.5 Data Flow Diagram: Level 1</td><td align="right">10</td></tr>
+        <tr><td class="toc-section">3.6 Data Flow Diagram: Level 2 (Detailed Functional Decomposition)</td><td align="right">11</td></tr>
+        <tr><td class="toc-section">3.7 Entity-Relationship (ER) Diagram</td><td align="right">12</td></tr>
+        <tr><td class="toc-section">3.8 Database Design & Normalized Relational Tables (3NF)</td><td align="right">13</td></tr>
+
+        <tr class="toc-chapter"><td>4. CHAPTER 4: IMPLEMENTATION DETAILS & ALGORITHMS</td><td align="right">15</td></tr>
+        <tr><td class="toc-section">4.1 Technology Stack & Architectural Patterns</td><td align="right">15</td></tr>
+        <tr><td class="toc-section">4.2 Module-Wise Functional Description (Modules 1-9)</td><td align="right">15</td></tr>
+        <tr><td class="toc-section">4.3 Rule-Based Risk Prediction Engine Logic</td><td align="right">16</td></tr>
+        <tr><td class="toc-section">4.4 Seamless Triage-to-Booking Integration Flow</td><td align="right">16</td></tr>
+        <tr><td class="toc-section">4.5 Security Architecture & Stateless JWT Lifecycle</td><td align="right">16</td></tr>
+
+        <tr class="toc-chapter"><td>5. CHAPTER 5: VERIFICATION & TESTING</td><td align="right">17</td></tr>
+        <tr><td class="toc-section">5.1 Testing Strategy & Methodology</td><td align="right">17</td></tr>
+        <tr><td class="toc-section">5.2 Synopsis Test Case Execution Table (TC-01 to TC-05)</td><td align="right">17</td></tr>
+        <tr><td class="toc-section">5.3 Automated Unit & Integration Testing Matrix (21/21 Passed)</td><td align="right">18</td></tr>
+        <tr><td class="toc-section">5.4 Defect Resolution & Concurrency Safeguards</td><td align="right">19</td></tr>
+
+        <tr class="toc-chapter"><td>6. CHAPTER 6: USER GUIDE & SYSTEM OPERATION</td><td align="right">20</td></tr>
+        <tr><td class="toc-section">6.1 Application Startup & Dev Profile Configuration</td><td align="right">20</td></tr>
+        <tr><td class="toc-section">6.2 Pre-Loaded Demonstration Accounts</td><td align="right">20</td></tr>
+        <tr><td class="toc-section">6.3 Patient, Doctor & Administrator Portals</td><td align="right">20</td></tr>
+
+        <tr class="toc-chapter"><td>7. CHAPTER 7: CONCLUSION & FUTURE SCOPE</td><td align="right">21</td></tr>
+        <tr><td class="toc-section">7.1 Conclusion & Synopsis Compliance</td><td align="right">21</td></tr>
+        <tr><td class="toc-section">7.2 Future Scope</td><td align="right">21</td></tr>
+
+        <tr class="toc-chapter"><td>8. CHAPTER 8: IGNOU VIVA VOCE PREPARATION GUIDE</td><td align="right">22</td></tr>
+    </table>
+</div>
+
+<div class="page-break"></div>
+
+<!-- CHAPTER 1: INTRODUCTION -->
+<div class="chapter-header">
+    <span class="chapter-badge">Chapter 1</span>
+    <h1 class="chapter-title">Introduction</h1>
+</div>
+
+<h2>1.1 Project Overview</h2>
+<p>
+    In modern healthcare facilities, managing patient appointments manually leads to prolonged waiting queues, scheduling errors, lost records, and patient frustration. Furthermore, patients often delay seeking medical attention due to a lack of early awareness regarding subtle symptoms.
+</p>
+<p>
+    The <strong>Smart Medical Appointment and Risk Prediction System</strong> is a computerized web application developed to bridge this gap. Built using Java 17 and Spring Boot 3, it provides automated conflict-free doctor appointment scheduling alongside an automated <strong>Rule-Based Risk Prediction Engine</strong> that triages patient symptoms to promote early health awareness and guide timely clinical consultations.
+</p>
+
+<h2>1.2 Purpose and Objectives</h2>
+<ul>
+    <li><strong>Digital Scheduling:</strong> Eliminate physical OPD queues through computerized time-slot allocation.</li>
+    <li><strong>Double-Booking Prevention:</strong> Enforce transactional database locks and slot availability validation.</li>
+    <li><strong>Symptom Triage:</strong> Provide an automated rule-based risk prediction engine categorizing health urgency into LOW, MEDIUM, or HIGH risk.</li>
+    <li><strong>Triage-to-Consultation Integration:</strong> Automatically pre-fill doctor consultation reasons for patients with high or moderate risk scores.</li>
+    <li><strong>Clinical Records:</strong> Provide doctors with patient clinical profiles (Blood Group, Medical History) and consultation notes/e-prescription documentation tools.</li>
+    <li><strong>Operational Traceability:</strong> Provide administrators with real-time analytics, exportable CSV reports, security audit trails, and portable SQL database backups.</li>
+</ul>
+
+<h2>1.3 Project Category & Web Development Life Cycle (WDLC)</h2>
+<p>
+    The project falls under the category of <strong>Enterprise Web-Based Applications</strong>. It was engineered following the <strong>Web Development Life Cycle (WDLC)</strong>:
+</p>
+<ol>
+    <li><strong>Requirement Analysis:</strong> Understanding outpatient workflows, doctor availability patterns, and clinical symptom rules.</li>
+    <li><strong>Planning:</strong> Defining the technology stack (Spring Boot 3, MySQL/H2, Bootstrap 5) and timeline.</li>
+    <li><strong>Design:</strong> Creating architectural blueprints, UML diagrams, DFDs (Level 0, 1, 2), and normalized 3NF schemas.</li>
+    <li><strong>Development:</strong> Writing clean backend REST controllers, service components, repositories, and responsive front-end views.</li>
+    <li><strong>Testing:</strong> Verifying system behavior using JUnit 5, Mockito, and Postman API test suites.</li>
+    <li><strong>Deployment:</strong> Packaging into a runnable JAR using Maven and hosting with embedded Tomcat.</li>
+    <li><strong>Maintenance:</strong> Establishing automated audit logging, database backup exports, and modular services for future scalability.</li>
+</ol>
+
+<h2>1.4 Scope & Limitations of the Existing System</h2>
+<p><strong>Drawbacks of Traditional / Manual Systems:</strong></p>
+<ul>
+    <li>Long waiting times and crowded physical reception queues.</li>
+    <li>Manual paper records prone to loss, wear, and misplacement.</li>
+    <li>High risk of double-booking due to uncoordinated scheduling across multiple receptionists.</li>
+    <li>Complete absence of preliminary symptom risk awareness.</li>
+    <li>Time-consuming manual report compilation.</li>
+</ul>
+
+<p><strong>Scope of Proposed System:</strong></p>
+<ul>
+    <li>Covers outpatient appointment booking, rescheduling, and cancellation.</li>
+    <li>Provides dedicated portals for Patients, Doctors, and Hospital Administrators.</li>
+    <li>Incorporates deterministic health risk assessment based on 10 symptom indicators.</li>
+    <li>Provides complete disaster recovery database backup capabilities.</li>
+</ul>
+
+<h2>1.5 Hardware & Software Environment</h2>
+<table class="data-table">
+    <tr>
+        <th>Component</th>
+        <th>Specification / Technology</th>
+    </tr>
+    <tr><td><strong>Operating System</strong></td><td>Windows 10 / 11, Linux, macOS</td></tr>
+    <tr><td><strong>Processor</strong></td><td>1.6 GHz or faster 64-bit multi-core CPU</td></tr>
+    <tr><td><strong>RAM</strong></td><td>4 GB minimum (8 GB recommended)</td></tr>
+    <tr><td><strong>Disk Space</strong></td><td>10 GB available storage</td></tr>
+    <tr><td><strong>Backend Framework</strong></td><td>Spring Boot 3.3.4, Java 17 LTS</td></tr>
+    <tr><td><strong>Security</strong></td><td>Spring Security 6 with stateless JWT (io.jsonwebtoken 0.11.5) & BCrypt</td></tr>
+    <tr><td><strong>Database</strong></td><td>MySQL 8.x (Production) / H2 in-memory (MySQL Compatibility Mode)</td></tr>
+    <tr><td><strong>Frontend</strong></td><td>HTML5, CSS3, JavaScript (ES6+ Fetch API), Bootstrap 5.3.3</td></tr>
+    <tr><td><strong>Build Tool</strong></td><td>Apache Maven 3.9+ (Wrapper mvnw.cmd included)</td></tr>
+    <tr><td><strong>API Testing</strong></td><td>Postman 2.1 Collection & JUnit 5 Surefire Suite</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<!-- CHAPTER 2: SYSTEM ANALYSIS & REQUIREMENTS -->
+<div class="chapter-header">
+    <span class="chapter-badge">Chapter 2</span>
+    <h1 class="chapter-title">System Analysis & Requirements</h1>
+</div>
+
+<h2>2.1 Feasibility Study</h2>
+<ol>
+    <li><strong>Technical Feasibility:</strong> Developed using industry-standard enterprise Java and Spring Boot 3, providing high performance, robust concurrency management, and seamless JPA ORM mapping. The architecture is fully portable across Windows and Linux environments.</li>
+    <li><strong>Operational Feasibility:</strong> The role-oriented user interface is responsive, clean, and requires zero technical training for patients or healthcare staff. Intuitive cards and clear color coding simplify daily operations.</li>
+    <li><strong>Economic Feasibility:</strong> Built entirely on open-source frameworks, runtime engines, and development tools, incurring zero software licensing expenses for the hospital.</li>
+</ol>
+
+<h2>2.2 Software Requirement Specification (SRS)</h2>
+<p><strong>Functional Requirements:</strong></p>
+<ul>
+    <li>Secure authentication and role-based access control (RBAC) across Admin, Doctor, and Patient personas.</li>
+    <li>Patient clinical profile management including Blood Group and Medical History tracking.</li>
+    <li>Doctor availability schedule management with slot creation and safe deletion.</li>
+    <li>Conflict-free appointment booking, atomic rescheduling, and cancellation with slot release.</li>
+    <li>Rule-based health risk prediction analyzing 10 key symptom factors.</li>
+    <li>Printable medical token slips, CSV analytics downloads, and SQL database backups.</li>
+</ul>
+
+<p><strong>Non-Functional Requirements:</strong></p>
+<ul>
+    <li><strong>Performance:</strong> Sub-second API response times under standard outpatient loads.</li>
+    <li><strong>Security:</strong> BCrypt password hashing and signed JWT bearer tokens protecting all REST endpoints.</li>
+    <li><strong>Reliability:</strong> ACID-compliant relational transactions protecting against slot race conditions.</li>
+    <li><strong>Maintainability:</strong> Clean layered architecture separating Presentation, Business Logic, and Data layers.</li>
+</ul>
+
+<h2>2.3 User Role Identification</h2>
+<table class="data-table">
+    <tr>
+        <th>Role</th>
+        <th>Access Level</th>
+        <th>Primary Responsibilities</th>
+    </tr>
+    <tr>
+        <td><strong>Patient</strong></td>
+        <td>Self-Service Client Portal</td>
+        <td>Register profile, update clinical details, evaluate symptom risks, book appointments, reschedule, download token slips.</td>
+    </tr>
+    <tr>
+        <td><strong>Doctor</strong></td>
+        <td>Clinical Practitioner Portal</td>
+        <td>View daily consultation queue, add/delete availability slots, record clinical diagnosis notes, issue e-prescriptions.</td>
+    </tr>
+    <tr>
+        <td><strong>Administrator</strong></td>
+        <td>Master Hospital Management</td>
+        <td>Onboard/modify doctor accounts, oversee patient directories, export CSV audit reports, generate SQL database backups.</td>
+    </tr>
+</table>
+
+<div class="page-break"></div>
+
+<!-- CHAPTER 3: SYSTEM DESIGN & UML / DFD MODELING -->
+<div class="chapter-header">
+    <span class="chapter-badge">Chapter 3</span>
+    <h1 class="chapter-title">System Design & UML / DFD Modeling</h1>
+</div>
+
+<h2>3.1 3-Tier Layered Architecture</h2>
+<p>
+    The system follows a strict 3-tier enterprise architecture ensuring separation of concerns:
+</p>
+
+<div class="box-diagram">
++---------------------------------------------------------------------------------+
+|                                PRESENTATION TIER                                |
+|        Responsive HTML5 / CSS3 / Bootstrap 5 / Modular JavaScript (ES6+)        |
+|    (index.html, register.html, patient/*.html, doctor/*.html, admin/*.html)    |
++----------------------------------------+----------------------------------------+
+                                         | JSON REST APIs / Stateless Bearer JWT
++----------------------------------------v----------------------------------------+
+|                                APPLICATION TIER                                 |
+|            Spring Boot 3.3.4 (Spring MVC, Spring Security 6, Spring Data)       |
+|    REST Controllers -> Service Layer -> JPA Repositories -> DTOs & Validation   |
+|   [AuthService, PatientService, DoctorService, AppointmentService, RiskService] |
++----------------------------------------+----------------------------------------+
+                                         | Hibernate ORM / HikariCP JDBC Pool
++----------------------------------------v----------------------------------------+
+|                                    DATA TIER                                    |
+|          Relational Database: MySQL 8.x (Prod) / H2 in MySQL Mode (Dev)         |
+|      Tables: admin, patient, doctor, doctor_slot, appointment, risk_report       |
++---------------------------------------------------------------------------------+
+</div>
+<p style="text-align: center; font-size: 8.5pt; color: #475569; font-style: italic; margin-top: 3px;">
+    Figure 3.1: 3-Tier Layered Architecture Blueprint
+</p>
+
+<h2>3.2 Use Case Diagram</h2>
+<p>
+    The Use Case Diagram depicts the system actors (Administrator, Patient, Doctor) and their functional boundaries:
+</p>
+
+<div class="diagram-card">
+<div class="mermaid">
+flowchart LR
+    subgraph Actors
+        Admin(("Administrator"))
+        Patient(("Patient"))
+        Doctor(("Doctor"))
+    end
+
+    subgraph System Boundary: Smart Medical System
+        UC1(["Manage Doctors"])
+        UC2(["Manage Patients"])
+        UC3(["Manage Appointments"])
+        UC4(["Generate Reports & Backup"])
+        UC5(["Register / Login"])
+        UC6(["Book Appointment"])
+        UC7(["Cancel / Reschedule"])
+        UC8(["Risk Prediction"])
+        UC9(["View Queue"])
+        UC10(["Manage Slots"])
+        UC11(["Diagnosis & Notes"])
+    end
+
+    Admin --> UC1
+    Admin --> UC2
+    Admin --> UC3
+    Admin --> UC4
+    Admin --> UC5
+
+    Patient --> UC5
+    Patient --> UC6
+    Patient --> UC7
+    Patient --> UC8
+
+    Doctor --> UC5
+    Doctor --> UC9
+    Doctor --> UC10
+    Doctor --> UC11
+</div>
+<div class="diagram-caption">Figure 3.2: Unified System Use Case Diagram</div>
+</div>
+
+<div class="page-break"></div>
+
+<h2>3.3 Class Diagram</h2>
+<p>
+    The Class Diagram illustrates domain entities, field attributes, operations, and structural associations:
+</p>
+
+<div class="diagram-card" style="padding: 10px;">
+<div class="mermaid">
+classDiagram
+    class Patient {
+        +Long patientId
+        +String name
+        +String email
+        +String password
+        +String mobile
+        +Integer age
+        +String bloodGroup
+        +String medicalHistory
+        +register()
+        +updateProfile()
+    }
+
+    class Doctor {
+        +Long doctorId
+        +String name
+        +String specialization
+        +String email
+        +String phone
+        +manageSlots()
+        +viewSchedule()
+    }
+
+    class DoctorSlot {
+        +Long slotId
+        +Doctor doctor
+        +LocalDate slotDate
+        +LocalTime slotTime
+        +Boolean isBooked
+    }
+
+    class Appointment {
+        +Long appointmentId
+        +Patient patient
+        +Doctor doctor
+        +DoctorSlot slot
+        +LocalDate appointmentDate
+        +AppointmentStatus status
+        +book()
+        +cancel()
+        +reschedule()
+    }
+
+    class RiskReport {
+        +Long reportId
+        +Patient patient
+        +String symptoms
+        +String riskLevel
+        +String result
+        +evaluateRisk()
+    }
+
+    class Admin {
+        +Long adminId
+        +String username
+        +manageUsers()
+        +generateReports()
+    }
+
+    Patient "1" --> "*" Appointment : books
+    Doctor "1" --> "*" Appointment : attends
+    Doctor "1" --> "*" DoctorSlot : offers
+    DoctorSlot "1" --> "0..1" Appointment : reserves
+    Patient "1" --> "*" RiskReport : undertakes
+    Admin "1" --> "*" Doctor : manages
+    Admin "1" --> "*" Patient : manages
+</div>
+<div class="diagram-caption">Figure 3.3: System Class Diagram</div>
+</div>
+
+<div class="page-break"></div>
+
+<h2>3.4 Data Flow Diagram: Level 0 (Context Diagram)</h2>
+<p>
+    The Level 0 DFD defines the boundary between external entities and the centralized medical management system:
+</p>
+
+<div class="diagram-card">
+<div class="mermaid">
+flowchart TD
+    Patient(["Patient"])
+    Doctor(["Doctor"])
+    Admin(["Administrator"])
+    System["0.0 Smart Medical Appointment & Risk Prediction System"]
+
+    Patient -->|"Registration, Slot Selection, Symptoms"| System
+    System -->|"Token Slip, Booking Status, Risk Result"| Patient
+
+    Doctor -->|"Availability Slots, Consultation Notes"| System
+    System -->|"Patient Queue, Daily Schedule"| Doctor
+
+    Admin -->|"Doctor Onboarding, System Oversight"| System
+    System -->|"Summary Metrics, Audit CSVs, SQL Backup"| Admin
+</div>
+<div class="diagram-caption">Figure 3.4: Data Flow Diagram - Level 0 (Context Diagram)</div>
+</div>
+
+<h2>3.5 Data Flow Diagram: Level 1</h2>
+<p>
+    The Level 1 DFD decomposes the system into 5 primary processes interacting with normalized datastores:
+</p>
+
+<div class="diagram-card">
+<div class="mermaid">
+flowchart TD
+    P(["Patient"])
+    D(["Doctor"])
+    A(["Admin"])
+
+    subgraph System Boundary
+        P1["1.0 User Registration & Login"]
+        P2["2.0 Appointment Management Process"]
+        P3["3.0 Doctor Management Process"]
+        P4["4.0 Risk Prediction Process"]
+        P5["5.0 Reports & Database Backup"]
+
+        D1[("D1: Users Database")]
+        D2[("D2: Appointments Database")]
+        D3[("D3: Doctors Database")]
+        D4[("D4: Risk Prediction Database")]
+        D5[("D5: System Records / Audits")]
+    end
+
+    P -->|"Login / Register Data"| P1
+    P1 <-->|"Verify & Store"| D1
+    P -->|"Book / Cancel / Reschedule"| P2
+    P2 <-->|"Check & Update Slots"| D3
+    P2 -->|"Record Appointment"| D2
+
+    D -->|"Availability / Schedule"| P3
+    P3 <-->|"Update Slots"| D3
+    D -->|"Consultation Notes / Status"| P2
+
+    P -->|"Symptoms & Health Info"| P4
+    P4 -->|"Store Assessment"| D4
+    P4 -->|"Risk Result"| P
+
+    A -->|"Request Reports & Backup"| P5
+    P5 <-->|"Fetch Records"| D2
+    P5 <-->|"Fetch Records"| D5
+</div>
+<div class="diagram-caption">Figure 3.5: Data Flow Diagram - Level 1</div>
+</div>
+
+<div class="page-break"></div>
+
+<h2>3.6 Data Flow Diagram: Level 2 (Detailed Functional Decomposition)</h2>
+<p>
+    Level 2 decomposes the system into 11 sub-processes (3.1 to 3.11) with data stores D1 to D4 as per the approved synopsis:
+</p>
+
+<div class="diagram-card">
+<div class="mermaid">
+flowchart TD
+    Patient(["Patient"])
+    Doctor(["Doctor"])
+    Admin(["Administrator"])
+
+    subgraph Process Decomposition
+        P3_1["3.1 Capture Patient Request / Symptoms"]
+        P3_2["3.2 Validate Patient Data"]
+        P3_3["3.3 Check Doctor Availability"]
+        P3_4["3.4 Fetch Doctor Details"]
+        P3_5["3.5 Record Appointment"]
+        P3_6["3.6 Analyze Symptoms"]
+        P3_7["3.7 Generate Risk Prediction"]
+        P3_8["3.8 Store Data"]
+        P3_9["3.9 Notify Patient"]
+        P3_10["3.10 Send Notifications / Token Slip"]
+        P3_11["3.11 View Appointment & Risk Details"]
+    end
+
+    subgraph Data Stores
+        D1[("D1: Patient Database")]
+        D2[("D2: Doctor Database")]
+        D3[("D3: Appointment Database")]
+        D4[("D4: Risk Database")]
+    end
+
+    Patient -->|"Appointment Request / Symptoms"| P3_1
+    P3_1 --> P3_2
+    P3_2 <-->|"Validate Against"| D1
+    P3_2 --> P3_3
+    P3_3 <-->|"Availability Query"| D2
+    P3_3 --> P3_4
+    P3_4 --> P3_5
+    P3_5 -->|"Save Booking"| D3
+    P3_5 -->|"Confirmation"| Patient
+
+    Patient -->|"Submit Health Details"| P3_6
+    P3_6 --> P3_7
+    P3_7 --> P3_8
+    P3_8 -->|"Save Assessment"| D4
+    P3_7 --> P3_9
+    P3_9 --> P3_10
+    P3_10 -->|"Token Slip / Status"| Patient
+
+    Doctor -->|"Inspect Schedule"| P3_11
+    P3_11 <-->|"Read Schedule & Patient Records"| D3
+    P3_11 <-->|"Read Clinical Risk Data"| D4
+    Admin -->|"Manage Appointments & Records"| P3_5
+</div>
+<div class="diagram-caption">Figure 3.6: Data Flow Diagram - Level 2 (Functional Decomposition)</div>
+</div>
+
+<div class="page-break"></div>
+
+<h2>3.7 Entity-Relationship (ER) Diagram</h2>
+<p>
+    The Entity-Relationship model shows tables, primary/foreign keys, and relational cardinality:
+</p>
+
+<div class="diagram-card">
+<div class="mermaid">
+erDiagram
+    PATIENT ||--o{ APPOINTMENT : books
+    PATIENT ||--o{ RISK_REPORT : undertakes
+    DOCTOR ||--o{ DOCTOR_SLOT : offers
+    DOCTOR ||--o{ APPOINTMENT : attends
+    DOCTOR_SLOT ||--o| APPOINTMENT : reserves
+    ADMIN ||--o{ AUDIT_LOG : generates
+
+    PATIENT {
+        bigint patient_id PK
+        varchar name
+        varchar email
+        varchar password
+        varchar mobile
+        int age
+        varchar gender
+        varchar address
+        varchar blood_group
+        text medical_history
+    }
+
+    DOCTOR {
+        bigint doctor_id PK
+        varchar name
+        varchar specialization
+        varchar email
+        varchar phone
+        varchar password
+        varchar availability
+    }
+
+    DOCTOR_SLOT {
+        bigint slot_id PK
+        bigint doctor_id FK
+        date slot_date
+        time slot_time
+        boolean is_booked
+    }
+
+    APPOINTMENT {
+        bigint appointment_id PK
+        bigint patient_id FK
+        bigint doctor_id FK
+        bigint slot_id FK
+        date appointment_date
+        time appointment_time
+        varchar reason
+        text doctor_notes
+        varchar status
+    }
+
+    RISK_REPORT {
+        bigint report_id PK
+        bigint patient_id FK
+        bigint appointment_id FK
+        text symptoms
+        varchar risk_level
+        varchar result
+        date report_date
+    }
+</div>
+<div class="diagram-caption">Figure 3.7: Entity-Relationship (ER) Diagram</div>
+</div>
+
+<div class="page-break"></div>
+
+<h2>3.8 Database Design & Normalized Relational Tables (3NF)</h2>
+
+<h3>1. Admin Table</h3>
+<p>Stores master administrative credentials and privileges.</p>
+<table class="data-table">
+    <tr><th>Field Name</th><th>Data Type</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td><code>admin_id</code></td><td>BIGINT</td><td>PK, AUTO_INCREMENT</td><td>Unique administrator identifier</td></tr>
+    <tr><td><code>username</code></td><td>VARCHAR(50)</td><td>NOT NULL, UNIQUE</td><td>Administrative login username</td></tr>
+    <tr><td><code>password</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>BCrypt salted password hash</td></tr>
+    <tr><td><code>email</code></td><td>VARCHAR(100)</td><td>NOT NULL, UNIQUE</td><td>Official administrative email</td></tr>
+    <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>DEFAULT CURRENT_TIMESTAMP</td><td>Account creation timestamp</td></tr>
+</table>
+
+<h3>2. Patient Table</h3>
+<p>Stores patient identity, contact details, and clinical profile.</p>
+<table class="data-table">
+    <tr><th>Field Name</th><th>Data Type</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td><code>patient_id</code></td><td>BIGINT</td><td>PK, AUTO_INCREMENT</td><td>Unique patient identifier</td></tr>
+    <tr><td><code>name</code></td><td>VARCHAR(100)</td><td>NOT NULL</td><td>Full name of patient</td></tr>
+    <tr><td><code>email</code></td><td>VARCHAR(100)</td><td>NOT NULL, UNIQUE</td><td>Login email address</td></tr>
+    <tr><td><code>password</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>BCrypt salted password hash</td></tr>
+    <tr><td><code>mobile</code></td><td>VARCHAR(15)</td><td>NOT NULL</td><td>Contact telephone number</td></tr>
+    <tr><td><code>age</code></td><td>INT</td><td>NOT NULL</td><td>Age in years</td></tr>
+    <tr><td><code>gender</code></td><td>VARCHAR(10)</td><td>NOT NULL</td><td>Gender (Male, Female, Other)</td></tr>
+    <tr><td><code>address</code></td><td>VARCHAR(255)</td><td>NULL</td><td>Residential address</td></tr>
+    <tr><td><code>blood_group</code></td><td>VARCHAR(10)</td><td>NULL</td><td>Clinical blood group (e.g., O+, B+)</td></tr>
+    <tr><td><code>medical_history</code></td><td>TEXT</td><td>NULL</td><td>Chronic conditions / past clinical notes</td></tr>
+    <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>DEFAULT CURRENT_TIMESTAMP</td><td>Registration timestamp</td></tr>
+</table>
+
+<h3>3. Doctor Table</h3>
+<p>Stores practitioner credentials, specialization, and availability.</p>
+<table class="data-table">
+    <tr><th>Field Name</th><th>Data Type</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td><code>doctor_id</code></td><td>BIGINT</td><td>PK, AUTO_INCREMENT</td><td>Unique doctor identifier</td></tr>
+    <tr><td><code>name</code></td><td>VARCHAR(100)</td><td>NOT NULL</td><td>Doctor full name and title</td></tr>
+    <tr><td><code>specialization</code></td><td>VARCHAR(100)</td><td>NOT NULL</td><td>Medical specialty (e.g., Cardiology)</td></tr>
+    <tr><td><code>email</code></td><td>VARCHAR(100)</td><td>NOT NULL, UNIQUE</td><td>Practitioner login email</td></tr>
+    <tr><td><code>phone</code></td><td>VARCHAR(15)</td><td>NULL</td><td>Work telephone number</td></tr>
+    <tr><td><code>password</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>BCrypt salted password hash</td></tr>
+    <tr><td><code>availability</code></td><td>VARCHAR(150)</td><td>NULL</td><td>Consultation hours description</td></tr>
+    <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>DEFAULT CURRENT_TIMESTAMP</td><td>Onboarding timestamp</td></tr>
+</table>
+
+<h3>4. Doctor Slot Table</h3>
+<p>Stores bookable consultation calendar slots.</p>
+<table class="data-table">
+    <tr><th>Field Name</th><th>Data Type</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td><code>slot_id</code></td><td>BIGINT</td><td>PK, AUTO_INCREMENT</td><td>Unique slot identifier</td></tr>
+    <tr><td><code>doctor_id</code></td><td>BIGINT</td><td>FK (Doctor), NOT NULL</td><td>Assigned doctor reference</td></tr>
+    <tr><td><code>slot_date</code></td><td>DATE</td><td>NOT NULL</td><td>Calendar consultation date</td></tr>
+    <tr><td><code>slot_time</code></td><td>TIME</td><td>NOT NULL</td><td>Specific appointment time</td></tr>
+    <tr><td><code>is_booked</code></td><td>BOOLEAN</td><td>NOT NULL, DEFAULT FALSE</td><td>Lock flag preventing duplicate bookings</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<h3>5. Appointment Table</h3>
+<p>Stores consultation bookings, visit lifecycle states, and doctor diagnosis notes.</p>
+<table class="data-table">
+    <tr><th>Field Name</th><th>Data Type</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td><code>appointment_id</code></td><td>BIGINT</td><td>PK, AUTO_INCREMENT</td><td>Unique appointment token reference</td></tr>
+    <tr><td><code>patient_id</code></td><td>BIGINT</td><td>FK (Patient), NOT NULL</td><td>Booking patient reference</td></tr>
+    <tr><td><code>doctor_id</code></td><td>BIGINT</td><td>FK (Doctor), NOT NULL</td><td>Consulting doctor reference</td></tr>
+    <tr><td><code>slot_id</code></td><td>BIGINT</td><td>FK (DoctorSlot), NULL</td><td>Associated calendar slot</td></tr>
+    <tr><td><code>appointment_date</code></td><td>DATE</td><td>NOT NULL</td><td>Scheduled consultation date</td></tr>
+    <tr><td><code>appointment_time</code></td><td>TIME</td><td>NOT NULL</td><td>Scheduled consultation time</td></tr>
+    <tr><td><code>reason</code></td><td>VARCHAR(255)</td><td>NULL</td><td>Reported symptoms / consultation reason</td></tr>
+    <tr><td><code>doctor_notes</code></td><td>TEXT</td><td>NULL</td><td>Clinical advice & e-prescription</td></tr>
+    <tr><td><code>status</code></td><td>VARCHAR(20)</td><td>NOT NULL</td><td>Status (PENDING, CONFIRMED, COMPLETED, CANCELLED)</td></tr>
+    <tr><td><code>created_at</code></td><td>TIMESTAMP</td><td>DEFAULT CURRENT_TIMESTAMP</td><td>Booking creation timestamp</td></tr>
+</table>
+
+<h3>6. Risk Report Table</h3>
+<p>Stores symptom assessment history and triage engine outcomes.</p>
+<table class="data-table">
+    <tr><th>Field Name</th><th>Data Type</th><th>Constraints</th><th>Description</th></tr>
+    <tr><td><code>report_id</code></td><td>BIGINT</td><td>PK, AUTO_INCREMENT</td><td>Unique risk evaluation record ID</td></tr>
+    <tr><td><code>patient_id</code></td><td>BIGINT</td><td>FK (Patient), NOT NULL</td><td>Assessed patient reference</td></tr>
+    <tr><td><code>appointment_id</code></td><td>BIGINT</td><td>FK (Appointment), NULL</td><td>Linked appointment (if booked via triage)</td></tr>
+    <tr><td><code>symptoms</code></td><td>TEXT</td><td>NOT NULL</td><td>Comma-delimited symptom identifiers</td></tr>
+    <tr><td><code>risk_level</code></td><td>VARCHAR(20)</td><td>NOT NULL</td><td>Triage level (LOW, MEDIUM, HIGH)</td></tr>
+    <tr><td><code>result</code></td><td>VARCHAR(255)</td><td>NOT NULL</td><td>Clinical directives and medical disclaimer</td></tr>
+    <tr><td><code>report_date</code></td><td>DATE</td><td>NOT NULL</td><td>Assessment execution date</td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<!-- CHAPTER 4: IMPLEMENTATION DETAILS & ALGORITHMS -->
+<div class="chapter-header">
+    <span class="chapter-badge">Chapter 4</span>
+    <h1 class="chapter-title">Implementation Details & Algorithms</h1>
+</div>
+
+<h2>4.1 Technology Stack & Architectural Patterns</h2>
+<ul>
+    <li><strong>Spring Boot 3.3.4 & Java 17 LTS:</strong> Modern object-oriented architecture leveraging inversion of control, dependency injection, and declarative transaction management.</li>
+    <li><strong>Stateless JWT & Spring Security 6:</strong> Token-based authentication using HMAC-SHA256 signatures ensuring complete API scalability.</li>
+    <li><strong>Spring Data JPA & Hibernate:</strong> Object-relational mapping ensuring database independence and type-safe query execution.</li>
+    <li><strong>Bootstrap 5.3.3 & Vanilla JavaScript (ES6+):</strong> Lightweight presentation tier with zero bloated dependencies, providing responsive rendering on desktop and mobile.</li>
+</ul>
+
+<h2>4.2 Module-Wise Functional Description</h2>
+<table class="data-table">
+    <tr><th>Module</th><th>Title</th><th>Scope & Delivered Features</th></tr>
+    <tr><td>Module 1</td><td>Authentication & Authorization</td><td>Role-based JWT login for Admin, Doctor, and Patient with BCrypt password encryption and protected routes.</td></tr>
+    <tr><td>Module 2</td><td>Patient Management</td><td>Patient registration, clinical profile editing, Blood Group, and Medical History tracking.</td></tr>
+    <tr><td>Module 3</td><td>Doctor Management</td><td>Doctor onboarding, slot generation, slot deletion (deleteSlot), consultation diagnosis notes, and e-prescription.</td></tr>
+    <tr><td>Module 4</td><td>Appointment Management</td><td>Atomic slot locking (is_booked), booking, transactional rescheduling, cancellation, and printable medical token slips.</td></tr>
+    <tr><td>Module 5</td><td>Risk Prediction</td><td>10-symptom rule engine, LOW/MEDIUM/HIGH classification, medical disclaimer, and dynamic appointment pre-fill.</td></tr>
+    <tr><td>Module 6</td><td>Report Generation</td><td>Summary statistics, Appointment CSV download, and Risk Assessment CSV export.</td></tr>
+    <tr><td>Module 7</td><td>Patient Portal</td><td>Comprehensive patient dashboard with live counts, upcoming bookings, and clinical risk history.</td></tr>
+    <tr><td>Module 8</td><td>Doctor & Admin Portals</td><td>Doctor daily queue portal; Admin hospital oversight, doctor modification modal, and audit logs.</td></tr>
+    <tr><td>Module 9</td><td>Database Management</td><td>3NF relational schema, database integrity, and on-demand SQL backup export (GET /api/admin/database/backup).</td></tr>
+</table>
+
+<div style="page-break-inside: avoid; break-inside: avoid;">
+<h2>4.3 Rule-Based Risk Prediction Engine Logic</h2>
+<p>
+    The risk prediction engine executes deterministic clinical decision rules evaluating patient age and 10 symptom factors:
+</p>
+
+<div class="diagram-card diagram-card-compact">
+<div class="mermaid">
+flowchart TD
+    Start["Patient Input: Age + Selected Symptoms"] --> Q1{"Contains CHEST_PAIN or<br>BREATHLESSNESS?"}
+    Q1 -- YES --> High1["HIGH RISK<br>Urgent ER Medical Care Required"]
+    Q1 -- NO --> Q2{"Age > 50 AND Symptoms contain<br>HIGH_BP & HIGH_SUGAR?"}
+    Q2 -- YES --> High2["HIGH RISK<br>Urgent Specialist Consultation"]
+    Q2 -- NO --> Q3{"Symptom Count >= 3 OR<br>(PROLONGED_COUGH & FEVER)?"}
+    Q3 -- YES --> Med["MEDIUM RISK<br>Schedule Doctor Consultation"]
+    Q3 -- NO --> Low["LOW RISK<br>Routine Outpatient Care"]
+</div>
+<div class="diagram-caption">Figure 4.1: Rule-Based Clinical Triage Decision Logic</div>
+</div>
+
+<p>
+    <strong>Symptom Weights:</strong> Chest Pain (+4), Breathlessness (+4), High BP (+2), High Sugar (+2), Prolonged Cough (+2), Fever (+1), Fatigue (+1), Headache (+1), Dizziness (+1), Weight Loss (+1). Age additions: Age &ge; 60 (+2), Age 40-59 (+1). Total Score: 0-3 (LOW), 4-7 (MEDIUM), 8+ (HIGH).
+</p>
+
+<h2>4.4 Seamless Triage-to-Booking Integration Flow</h2>
+<p>
+    When an evaluated patient receives a <strong>HIGH</strong> or <strong>MEDIUM</strong> risk score:
+</p>
+<ol>
+    <li>The results banner renders an urgent recommendation with a direct <strong>"Book Doctor Visit"</strong> action button.</li>
+    <li>Clicking the action constructs a URL appending the triage context: <code>?reason=Risk+Assessment:+HIGH+Risk+-+Symptoms:...&fromRisk=true</code>.</li>
+    <li>The appointment booking view automatically intercepts query parameters, pre-populates the consultation reason, selects the appropriate specialty, and displays an informational referral banner.</li>
+    <li>The consulting doctor sees the patient's reported symptoms, risk category, blood group, and medical history upon arrival.</li>
+</ol>
+
+<h2>4.5 Security Architecture & Stateless JWT Lifecycle</h2>
+<ul>
+    <li><strong>Stateless Authentication:</strong> Credentials submitted to <code>POST /api/auth/login</code> are verified via BCrypt. Upon successful verification, a signed JWT bearer token containing user ID, role, and username is issued.</li>
+    <li><strong>Request Interception:</strong> <code>JwtAuthenticationFilter</code> intercepts incoming HTTP requests, extracts the <code>Authorization: Bearer &lt;token&gt;</code> header, verifies cryptographic validity, and injects user claims into Spring's <code>SecurityContextHolder</code>.</li>
+    <li><strong>Role-Based Access Control (RBAC):</strong> REST endpoints are guarded with method-level authorization (<code>@PreAuthorize("hasRole('ADMIN')")</code>, <code>@PreAuthorize("hasRole('DOCTOR')")</code>, <code>@PreAuthorize("hasRole('PATIENT')")</code>).</li>
+</ul>
+</div>
+
+<div class="page-break"></div>
+
+<!-- CHAPTER 5: VERIFICATION & TESTING -->
+<div class="chapter-header">
+    <span class="chapter-badge">Chapter 5</span>
+    <h1 class="chapter-title">Verification & Testing</h1>
+</div>
+
+<h2>5.1 Testing Strategy & Methodology</h2>
+<p>
+    A multi-tiered testing strategy was employed ensuring functional correctness, transactional reliability, and RBAC boundary enforcement:
+</p>
+<ul>
+    <li><strong>Unit Testing:</strong> Isolated service testing using Mockito to verify slot locking, risk score calculations, and password verification.</li>
+    <li><strong>Integration Testing:</strong> Spring MockMvc testing verifying REST endpoint request mapping, status codes, and JSON response bodies.</li>
+    <li><strong>Concurrency Testing:</strong> Verifying that atomic transactions prevent double-booking on simultaneous reservation attempts.</li>
+</ul>
+
+<h2>5.2 Synopsis Test Case Execution Table (TC-01 to TC-05)</h2>
+<p>
+    All 5 test scenarios mandated by Section 12 of the approved synopsis were executed and verified:
+</p>
+
+<table class="data-table">
+    <tr>
+        <th>Test ID</th>
+        <th>Scenario</th>
+        <th>Input Data</th>
+        <th>Expected Output</th>
+        <th>Actual Output</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td><strong>TC-01</strong></td>
+        <td>User Login</td>
+        <td>admin / Admin@123 (ADMIN)</td>
+        <td>Login success, JWT token returned, HTTP 200</td>
+        <td>JWT token returned; redirected to /admin/dashboard.html</td>
+        <td><span class="status-pass">PASS</span></td>
+    </tr>
+    <tr>
+        <td><strong>TC-02</strong></td>
+        <td>Book Appointment</td>
+        <td>Doctor ID, unbooked Slot ID, Reason</td>
+        <td>Slot locked (is_booked = true), HTTP 201 Created</td>
+        <td>Appointment #1 created, slot locked, token slip available</td>
+        <td><span class="status-pass">PASS</span></td>
+    </tr>
+    <tr>
+        <td><strong>TC-03</strong></td>
+        <td>Invalid Login</td>
+        <td>admin / WrongPassword</td>
+        <td>HTTP 401 Unauthorized with descriptive message</td>
+        <td>HTTP 401: "Invalid Admin username/email or password"</td>
+        <td><span class="status-pass">PASS</span></td>
+    </tr>
+    <tr>
+        <td><strong>TC-04</strong></td>
+        <td>Risk Prediction</td>
+        <td>CHEST_PAIN, BREATHLESSNESS</td>
+        <td>Immediate HIGH RISK with medical emergency note</td>
+        <td>High Risk badge, explanation, "Book Doctor Visit" pre-fill link</td>
+        <td><span class="status-pass">PASS</span></td>
+    </tr>
+    <tr>
+        <td><strong>TC-05</strong></td>
+        <td>Unauthorized Access</td>
+        <td>Patient token accessing /api/admin/reports</td>
+        <td>Access denied, HTTP 403 Forbidden</td>
+        <td>HTTP 403 Forbidden: "Access Denied" returned</td>
+        <td><span class="status-pass">PASS</span></td>
+    </tr>
+</table>
+
+<h2>5.3 Automated Unit & Integration Testing Matrix (21/21 Tests Passed)</h2>
+<p>
+    The automated JUnit 5 test suite executed via Maven Surefire achieved <strong>100% passage (21/21 passed, 0 failures, 0 errors)</strong>:
+</p>
+
+<table class="data-table">
+    <tr>
+        <th>Test Class</th>
+        <th>Test Case Method</th>
+        <th>Scenario / Assertion</th>
+        <th>Result</th>
+    </tr>
+    <tr><td><code>AppointmentControllerTest</code></td><td><code>testBookAppointmentSuccess</code></td><td>TC-02: Patient reserves available slot via POST /api/appointments</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>AppointmentControllerTest</code></td><td><code>testCancelAppointmentSuccess</code></td><td>Patient cancels existing appointment returns HTTP 200</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>AppointmentControllerTest</code></td><td><code>testUpdateStatusSuccess</code></td><td>Doctor/Admin updates appointment status to CONFIRMED</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>AppointmentControllerTest</code></td><td><code>testRescheduleAppointmentSuccess</code></td><td>Patient reschedules to new slot returns HTTP 200</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>AuthControllerTest</code></td><td><code>testTC01_LoginSuccess</code></td><td>TC-01: Authenticate valid user credentials returns JWT bearer token</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>AuthControllerTest</code></td><td><code>testTC03_InvalidLogin_ErrorMessage</code></td><td>TC-03: Invalid credentials return HTTP 401 with error message</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>AuthControllerTest</code></td><td><code>testTC05_UnauthorizedAccess_Forbidden</code></td><td>TC-05: Patient token accessing /api/admin/reports returns HTTP 403</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>AppointmentServiceTest</code></td><td><code>testBookAppointment_Success</code></td><td>Slot locking and appointment persistence in atomic transaction</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>AppointmentServiceTest</code></td><td><code>testBookAppointment_SlotUnavailable</code></td><td>Throws SlotUnavailableException on double-booking attempt</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>AppointmentServiceTest</code></td><td><code>testReschedule_Success</code></td><td>Releases old slot (false) and claims new slot (true)</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>AppointmentServiceTest</code></td><td><code>testReschedule_DifferentDoctorSlot</code></td><td>Rejects slot belonging to different doctor</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>AppointmentServiceTest</code></td><td><code>testCancel_ReleasesSlot</code></td><td>Cancelling unreserves slot back to available status</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>DoctorServiceTest</code></td><td><code>testDeleteSlot_Success</code></td><td>Doctor deletes own unbooked slot</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>DoctorServiceTest</code></td><td><code>testDeleteSlot_AccessDenied</code></td><td>Doctor deletes another doctor's slot throws AccessDeniedException</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>DoctorServiceTest</code></td><td><code>testDeleteSlot_BookedSlotConflict</code></td><td>Attempt to delete booked slot throws IllegalStateException (400)</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>DoctorServiceTest</code></td><td><code>testDeleteSlot_NotFound</code></td><td>Non-existent slot ID throws ResourceNotFoundException (404)</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>DoctorServiceTest</code></td><td><code>testAddSlot_Success</code></td><td>Doctor creates new availability time slot with isBooked = false</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>RiskPredictionServiceTest</code></td><td><code>testLowRiskScoring</code></td><td>Minor symptoms and young age calculate score &lt; 4 (LOW RISK)</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>RiskPredictionServiceTest</code></td><td><code>testMediumRiskScoring</code></td><td>Moderate symptoms and middle age calculate score 4-7 (MEDIUM RISK)</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>RiskPredictionServiceTest</code></td><td><code>testHighRiskScoring</code></td><td>Cardiac/respiratory symptoms and elderly age score &gt; 7 (HIGH RISK)</td><td><span class="status-pass">PASS</span></td></tr>
+    <tr><td><code>RiskPredictionServiceTest</code></td><td><code>testEvaluateRiskAndSave</code></td><td>TC-04: Symptom evaluation persists risk report and returns disclaimer</td><td><span class="status-pass">PASS</span></td></tr>
+</table>
+
+<div class="page-break"></div>
+
+<!-- CHAPTER 6: USER GUIDE & SYSTEM OPERATION -->
+<div class="chapter-header">
+    <span class="chapter-badge">Chapter 6</span>
+    <h1 class="chapter-title">User Guide & System Operation</h1>
+</div>
+
+<h2>6.1 Application Startup</h2>
+<p>
+    The application runs in self-contained development mode with automated data seeding:
+</p>
+<pre>.\mvnw.cmd spring-boot:run "-Dspring-boot.run.profiles=dev"</pre>
+<p>
+    Or via the included one-click Windows launcher: <code>run.bat</code>. Once started, open your web browser at <strong>http://localhost:8080</strong>.
+</p>
+
+<h2>6.2 Pre-Loaded Demonstration Accounts</h2>
+<table class="data-table">
+    <tr>
+        <th>Role</th>
+        <th>Username / Email</th>
+        <th>Password</th>
+        <th>Capabilities & Access</th>
+    </tr>
+    <tr>
+        <td><strong>Administrator</strong></td>
+        <td><code>admin</code></td>
+        <td><code>Admin@123</code></td>
+        <td>Master hospital oversight, doctor CRUD, audit logs, CSV exports, SQL database backup.</td>
+    </tr>
+    <tr>
+        <td><strong>Doctor</strong></td>
+        <td><code>sharma@smartmed.com</code><br>(or <code>share@smartmed.com</code>)</td>
+        <td><code>Doctor@123</code></td>
+        <td>Daily consultation queue, slot addition & deletion, clinical diagnosis notes, e-prescriptions.</td>
+    </tr>
+    <tr>
+        <td><strong>Doctor</strong></td>
+        <td><code>patel@smartmed.com</code></td>
+        <td><code>Doctor@123</code></td>
+        <td>Neurologist schedule management, slot creation, consultation records.</td>
+    </tr>
+    <tr>
+        <td><strong>Patient</strong></td>
+        <td><code>preeti@example.com</code></td>
+        <td><code>Patient@123</code></td>
+        <td>Clinical profile, symptom risk triage, appointment booking, rescheduling, printable token slip.</td>
+    </tr>
+</table>
+
+<h2>6.3 Portals Walkthrough</h2>
+<ul>
+    <li><strong>Patient Portal:</strong> Provides intuitive cards for self-service symptom triage, slot browsing by doctor specialty, atomic appointment booking, rescheduling, and printable token slips with doctor notes.</li>
+    <li><strong>Doctor Portal:</strong> Equips medical practitioners with an active queue of scheduled consultations, quick slot availability generation, slot removal, and full clinical note capture.</li>
+    <li><strong>Administrator Portal:</strong> Provides executive summary KPIs, doctor onboarding modals, patient directories, CSV data exports, and on-demand portable SQL database backup generation.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- CHAPTER 7: CONCLUSION & FUTURE SCOPE -->
+<div class="chapter-header">
+    <span class="chapter-badge">Chapter 7</span>
+    <h1 class="chapter-title">Conclusion & Future Scope</h1>
+</div>
+
+<h2>7.1 Conclusion</h2>
+<p>
+    The <strong>Smart Medical Appointment and Risk Prediction System</strong> successfully achieves every objective, architecture pattern, and functional specification outlined in the approved IGNOU BCSP-064 project proposal:
+</p>
+<ul>
+    <li><strong>Zero Double-Booking:</strong> Enforces strict transactional relational concurrency locks.</li>
+    <li><strong>Clinical Health Awareness:</strong> Features a transparent rule-based symptom assessment engine that directs high-risk patients to urgent care.</li>
+    <li><strong>Comprehensive Workflows:</strong> Empowers Patients, Doctors, and Administrators with dedicated responsive portals.</li>
+    <li><strong>Zero Out-of-Scope Bloat:</strong> Strictly adheres to the 9 modules, 6 relational tables, and 5 testing scenarios approved in the proposal.</li>
+</ul>
+
+<h2>7.2 Future Scope</h2>
+<ul>
+    <li><strong>SMS & WhatsApp Notifications:</strong> Integrating cloud messaging gateways (e.g., Twilio) for automated appointment reminders.</li>
+    <li><strong>Machine Learning Diagnostics:</strong> Incorporating multi-disease predictive models (Random Forest / XGBoost) trained on clinical datasets via a microservice.</li>
+    <li><strong>Telemedicine Video Consultations:</strong> Embedding WebRTC audio/video consultations for remote patient examinations.</li>
+    <li><strong>ABDM Health Locker:</strong> Integrating with India's Ayushman Bharat Digital Mission (ABDM) for interoperable electronic health records.</li>
+</ul>
+
+<div class="page-break"></div>
+
+<!-- CHAPTER 8: IGNOU VIVA VOCE PREPARATION GUIDE -->
+<div class="chapter-header">
+    <span class="chapter-badge">Chapter 8</span>
+    <h1 class="chapter-title">IGNOU Viva Voce Preparation Guide</h1>
+</div>
+
+<div class="viva-card">
+    <div class="viva-q">Q1: What is the core problem solved by your project?</div>
+    <div class="viva-a">
+        <strong>Answer:</strong> It addresses the severe outpatient congestion in traditional healthcare facilities by eliminating physical waiting queues, preventing scheduling conflicts (double-booking) through atomic database transactions, and providing early health risk awareness through an automated symptom triage engine.
+    </div>
+</div>
+
+<div class="viva-card">
+    <div class="viva-q">Q2: How does the system prevent two patients from booking the same doctor slot simultaneously?</div>
+    <div class="viva-a">
+        <strong>Answer:</strong> In <code>AppointmentService.java</code>, the booking method is annotated with Spring's <code>@Transactional</code>. Before persisting an appointment, the system evaluates <code>slot.getIsBooked()</code>. If true, it immediately throws <code>SlotUnavailableException</code> (HTTP 409 Conflict). If false, it sets <code>isBooked = true</code> and saves the appointment within the same atomic database transaction.
+    </div>
+</div>
+
+<div class="viva-card">
+    <div class="viva-q">Q3: How does the Risk Prediction Engine operate?</div>
+    <div class="viva-a">
+        <strong>Answer:</strong> Implemented in <code>RiskPredictionService.java</code>, it applies deterministic clinical rules across patient age and 10 vital symptom indicators. Critical symptoms (Chest Pain, Breathlessness) or elderly comorbidity (age > 50 with hypertension and diabetes) immediately yield a <strong>HIGH RISK</strong> classification. Furthermore, patients with elevated risk receive a pre-filled booking link directly into the appointment module.
+    </div>
+</div>
+
+<div class="viva-card">
+    <div class="viva-q">Q4: How is security implemented in the application?</div>
+    <div class="viva-a">
+        <strong>Answer:</strong> Using Spring Security 6 with stateless JSON Web Tokens (JWT). Passwords are encrypted using BCrypt with salt rounds. Endpoints are protected with method-level authorization (<code>@PreAuthorize("hasRole('ADMIN')")</code>, <code>@PreAuthorize("hasRole('DOCTOR')")</code>, <code>@PreAuthorize("hasRole('PATIENT')")</code>).
+    </div>
+</div>
+
+<div class="viva-card">
+    <div class="viva-q">Q5: How does the Database Backup and Security requirement from Module 9 work?</div>
+    <div class="viva-a">
+        <strong>Answer:</strong> Implemented in <code>DatabaseBackupService.java</code>, an authenticated administrator can trigger <code>GET /api/admin/database/backup</code> to generate and download a complete, portable SQL dump of all system tables (admin, doctor, patient, doctor_slot, appointment, risk_report) with sanitized foreign key checks for disaster recovery and offline archiving.
+    </div>
+</div>
+
+</body>
+</html>

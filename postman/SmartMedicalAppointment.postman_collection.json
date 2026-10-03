@@ -1,0 +1,360 @@
+{
+  "info": {
+    "name": "Smart Medical Appointment & Risk Prediction System (BCSP-064)",
+    "description": "Comprehensive Postman test suite for IGNOU BCA Major Project REST APIs (BCSP-064 by Preeti, Enrollment: 2401048429)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080/api" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register Patient",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Preeti\",\n  \"email\": \"preeti@example.com\",\n  \"password\": \"Patient@123\",\n  \"mobile\": \"+91 9876543210\",\n  \"age\": 24,\n  \"gender\": \"Female\",\n  \"address\": \"Rohini, New Delhi\",\n  \"bloodGroup\": \"B+\",\n  \"medicalHistory\": \"None\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register/patient" }
+          }
+        },
+        {
+          "name": "Login (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usernameOrEmail\": \"admin\",\n  \"password\": \"Admin@123\",\n  \"role\": \"ADMIN\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login" }
+          }
+        },
+        {
+          "name": "Login (Doctor)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usernameOrEmail\": \"sharma@smartmed.com\",\n  \"password\": \"Doctor@123\",\n  \"role\": \"DOCTOR\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login" }
+          }
+        },
+        {
+          "name": "Login (Patient)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"usernameOrEmail\": \"preeti@example.com\",\n  \"password\": \"Patient@123\",\n  \"role\": \"PATIENT\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Patient Module",
+      "item": [
+        {
+          "name": "Get My Profile",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/patients/me" }
+          }
+        },
+        {
+          "name": "Update My Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Preeti\",\n  \"mobile\": \"+91 9876543210\",\n  \"age\": 25,\n  \"gender\": \"Female\",\n  \"address\": \"Sector 14, Rohini, New Delhi\",\n  \"bloodGroup\": \"B+\",\n  \"medicalHistory\": \"Seasonal Allergies\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/patients/me" }
+          }
+        },
+        {
+          "name": "List Doctors",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/doctors" }
+          }
+        },
+        {
+          "name": "Get Doctor Available Slots",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/doctors/1/slots" }
+          }
+        },
+        {
+          "name": "Book Appointment",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"doctorId\": 1,\n  \"slotId\": 1,\n  \"reason\": \"Routine cardiology follow-up\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/appointments" }
+          }
+        },
+        {
+          "name": "Get My Appointments",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/patients/me/appointments" }
+          }
+        },
+        {
+          "name": "Reschedule Appointment",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"newSlotId\": 2\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/appointments/1/reschedule" }
+          }
+        },
+        {
+          "name": "Cancel Appointment",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/appointments/1/cancel" }
+          }
+        },
+        {
+          "name": "Submit Risk Prediction",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"age\": 50,\n  \"symptoms\": [\"FEVER\", \"PROLONGED_COUGH\", \"HIGH_BLOOD_PRESSURE\"]\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/risk-predictions" }
+          }
+        },
+        {
+          "name": "Get My Risk Reports",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/patients/me/risk-reports" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Doctor Module",
+      "item": [
+        {
+          "name": "Get Doctor Profile",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/doctors/me" }
+          }
+        },
+        {
+          "name": "Get Doctor Appointments",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/doctors/me/appointments" }
+          }
+        },
+        {
+          "name": "Get Doctor Slots",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/doctors/me/slots" }
+          }
+        },
+        {
+          "name": "Add Doctor Slot",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"slotDate\": \"2026-10-15\",\n  \"slotTime\": \"11:30:00\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/doctors/me/slots" }
+          }
+        },
+        {
+          "name": "Delete Doctor Slot",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/doctors/me/slots/1" }
+          }
+        },
+        {
+          "name": "Update Status (Confirm)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"CONFIRMED\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/appointments/1/status" }
+          }
+        },
+        {
+          "name": "Complete Consultation & Add Notes",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"COMPLETED\",\n  \"doctorNotes\": \"Patient examined. BP 130/85 mmHg. Continue low sodium diet and take prescribed medication. Review after 15 days.\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/appointments/1/status" }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Admin Module",
+      "item": [
+        {
+          "name": "Summary Analytics Report",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/reports/summary" }
+          }
+        },
+        {
+          "name": "All Risk Reports Audit",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/reports/risk" }
+          }
+        },
+        {
+          "name": "Get All Appointments (Paginated)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/appointments?page=0&size=10" }
+          }
+        },
+        {
+          "name": "List All Patients",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/patients" }
+          }
+        },
+        {
+          "name": "Delete Patient",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/patients/2" }
+          }
+        },
+        {
+          "name": "List All Doctors",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/doctors" }
+          }
+        },
+        {
+          "name": "Create Doctor",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dr. Neha Gupta\",\n  \"specialization\": \"Dermatology\",\n  \"email\": \"gupta@smartmed.com\",\n  \"phone\": \"+91 9988776655\",\n  \"password\": \"Doctor@123\",\n  \"availability\": \"Mon-Wed 10:00 - 14:00\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/admin/doctors" }
+          }
+        },
+        {
+          "name": "Update Doctor",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dr. Rohit Sharma\",\n  \"specialization\": \"Cardiology & Internal Medicine\",\n  \"phone\": \"+91 9811122233\",\n  \"availability\": \"Mon-Fri 09:00 - 16:00\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/admin/doctors/1" }
+          }
+        },
+        {
+          "name": "Delete Doctor",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/doctors/2" }
+          }
+        },
+        {
+          "name": "Get Audit Logs",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/audit-logs" }
+          }
+        }
+      ]
+    }
+  ]
+}

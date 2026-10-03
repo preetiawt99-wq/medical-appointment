@@ -1,0 +1,33 @@
+# Maven build output
+target/
+
+# Java artifacts
+*.class
+*.jar
+*.war
+hs_err_pid*
+
+# Logs
+*.log
+/logs/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# IDE files
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local H2 database files
+*.mv.db
+*.trace.db

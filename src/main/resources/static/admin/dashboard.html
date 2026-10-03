@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrator Dashboard - SmartMed</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body id="adminDashboard">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand text-primary fw-bold" href="/admin/dashboard.html"><i class="bi bi-shield-lock-fill me-2"></i>SmartMed Admin</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link active" href="/admin/dashboard.html"><i class="bi bi-speedometer2 me-1"></i>Overview</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/manage-doctors.html"><i class="bi bi-people me-1"></i>Doctors</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/manage-patients.html"><i class="bi bi-person-lines-fill me-1"></i>Patients</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/manage-appointments.html"><i class="bi bi-calendar3 me-1"></i>Appointments</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/admin/reports.html"><i class="bi bi-bar-chart-line me-1"></i>Reports</a></li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <span class="text-light me-3 small"><i class="bi bi-person-fill-gear me-1"></i>Administrator</span>
+                    <button class="btn btn-outline-light btn-sm" onclick="API.logout()"><i class="bi bi-box-arrow-right me-1"></i>Logout</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="main-content container py-4">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="fw-bold mb-1">System Administration Overview</h3>
+                <p class="text-muted small mb-0">Platform metrics, consultation tracking, and risk analysis</p>
+            </div>
+            <div>
+                <button class="btn btn-outline-dark me-2" onclick="downloadDatabaseBackup()"><i class="bi bi-database-down me-1"></i>Backup Database</button>
+                <a href="/admin/reports.html" class="btn btn-primary"><i class="bi bi-download me-1"></i>Export Reports</a>
+            </div>
+        </div>
+        <div class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div class="card p-3 stat-card">
+                    <div class="text-muted small">Registered Patients</div>
+                    <h2 class="fw-bold mb-0" id="adminTotalPatients">0</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3 stat-card success">
+                    <div class="text-muted small">Active Doctors</div>
+                    <h2 class="fw-bold mb-0 text-success" id="adminTotalDoctors">0</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3 stat-card warning">
+                    <div class="text-muted small">Total Bookings</div>
+                    <h2 class="fw-bold mb-0 text-warning" id="adminTotalAppointments">0</h2>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card p-3 stat-card danger">
+                    <div class="text-muted small">Risk Triage Runs</div>
+                    <h2 class="fw-bold mb-0 text-danger" id="adminRiskCount">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row g-3 mb-4">
+            <div class="col-md-4">
+                <div class="card p-3 text-center border-0 bg-white">
+                    <div class="text-muted small">Pending Verification</div>
+                    <h4 class="fw-bold text-warning mb-0" id="adminPendingCount">0</h4>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 text-center border-0 bg-white">
+                    <div class="text-muted small">Completed Consultations</div>
+                    <h4 class="fw-bold text-success mb-0" id="adminCompletedCount">0</h4>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card p-3 text-center border-0 bg-white">
+                    <div class="text-muted small">Cancelled Appointments</div>
+                    <h4 class="fw-bold text-danger mb-0" id="adminCancelledCount">0</h4>
+                </div>
+            </div>
+        </div>
+        <div class="card p-4 shadow-sm border-0 bg-white">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="fw-bold mb-0"><i class="bi bi-clock-history text-primary me-2"></i>Recent System Bookings</h5>
+                <a href="/admin/manage-appointments.html" class="btn btn-sm btn-link text-decoration-none">View All &rarr;</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>ID</th>
+                            <th>Patient</th>
+                            <th>Doctor</th>
+                            <th>Schedule</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="adminRecentAppointmentsBody">
+                        <tr><td colspan="5" class="text-center py-3 text-muted">Loading appointments...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <footer class="text-center"><div class="container"><p class="mb-0 text-muted small">Smart Medical Appointment & Risk Prediction System &copy; 2026</p></div></footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/api.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+</html>
