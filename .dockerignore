@@ -1,0 +1,14 @@
+# Only pom.xml and src/ are needed to build the image
+target/
+.git/
+.mvn/
+docs/
+postman/
+mvnw
+mvnw.cmd
+*.bat
+*.md
+.env
+.env.*
+.idea/
+*.iml

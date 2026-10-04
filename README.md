@@ -72,6 +72,25 @@ From the project root directory:
 Once started, open your browser and navigate to:
 👉 **`http://localhost:8080`**
 
+### 4.1 Cloud Deployment (Render + Aiven MySQL)
+
+The repository contains a `Dockerfile`, so it can be deployed as a Docker web service on [Render](https://render.com) with a managed MySQL database such as [Aiven for MySQL](https://aiven.io) (free plan).
+
+1. On Render choose **New → Web Service**, connect this GitHub repository and keep the detected **Docker** runtime.
+2. Add the following environment variables (values from the Aiven *Connection information* panel):
+
+| Variable | Example value | Purpose |
+| :--- | :--- | :--- |
+| `DB_HOST` | `mysql-xxxx.aivencloud.com` | MySQL host |
+| `DB_PORT` | `12345` | MySQL port |
+| `DB_NAME` | `defaultdb` | Database name |
+| `DB_USER` | `avnadmin` | Database user |
+| `DB_PASSWORD` | *(secret)* | Database password |
+| `DB_SSL_MODE` | `REQUIRED` | Encrypted connection (required by Aiven) |
+| `JWT_SECRET` | *(random string, at least 32 characters)* | Signing key for login tokens |
+
+`PORT` is supplied by Render automatically and is read by `server.port`. Locally none of these variables are needed: the defaults in `application.yml` connect to MySQL on `localhost:3306` without SSL.
+
 ---
 
 ## 5. Seeded Accounts for Testing & Viva Demo
