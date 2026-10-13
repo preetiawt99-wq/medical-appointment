@@ -42,6 +42,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // Public Auth APIs
                         .requestMatchers("/api/auth/**").permitAll()
+                        // Public health check (uptime monitors, keep-alive ping)
+                        .requestMatchers(HttpMethod.GET, "/api/health").permitAll()
                         // Public Static Web Resources
                         .requestMatchers(
                                 "/",

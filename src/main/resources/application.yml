@@ -11,6 +11,13 @@ jwt:
   secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
   expiration: 86400000 # 24 hours in milliseconds
 
+# Keep-alive: pings <url>/api/health so a free host does not sleep and a free
+# database does not power off. Render sets RENDER_EXTERNAL_URL automatically;
+# when no URL is available (local runs) the ping is disabled.
+keepalive:
+  url: ${KEEPALIVE_URL:${RENDER_EXTERNAL_URL:}}
+  interval-ms: ${KEEPALIVE_INTERVAL_MS:600000} # 10 minutes (Render sleeps after 15)
+
 ---
 # MySQL Production / Primary Profile (Default)
 spring:

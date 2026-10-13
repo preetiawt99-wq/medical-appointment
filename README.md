@@ -91,6 +91,8 @@ The repository contains a `Dockerfile`, so it can be deployed as a Docker web se
 
 `PORT` is supplied by Render automatically and is read by `server.port`. Locally none of these variables are needed: the defaults in `application.yml` connect to MySQL on `localhost:3306` without SSL.
 
+**Keep-alive on free plans.** `GET /api/health` is a public endpoint that runs a database query and returns `{"status":"UP","database":"UP"}` (HTTP 503 when the database is unreachable). On Render the application calls its own public URL (`RENDER_EXTERNAL_URL`, set by Render) every 10 minutes, so the free web service does not sleep and the free database sees regular activity. Set `KEEPALIVE_URL` to override the URL or `KEEPALIVE_INTERVAL_MS` to change the interval; without a URL (local runs) the ping is disabled. An always-on free service uses about 744 of Render's 750 free instance hours per month, so keep it as the only free web service in the workspace.
+
 ---
 
 ## 5. Seeded Accounts for Testing & Viva Demo
